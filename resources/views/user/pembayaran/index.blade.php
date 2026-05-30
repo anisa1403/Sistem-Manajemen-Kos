@@ -214,8 +214,8 @@ body {
 }
 .sidebar-menu { 
     list-style: none; 
-    display: flex; f
-    lex-direction: column; 
+    display: flex;
+    flex-direction: column; 
     gap: 0.2rem; 
     margin-bottom: 1rem; 
 }
@@ -276,10 +276,10 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
     opacity: 0.75;
 }
 .sidebar-divider { 
-    display: flex; a
+    display: flex;
     lign-items: center; 
     gap: 8px; 
-    adding: 0.2rem 0.5rem; 
+    padding: 0.2rem 0.5rem; 
     margin: 0.4rem 0; 
 }
 .sidebar-divider span { 
@@ -425,7 +425,7 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
     background: rgba(255,255,255,0.04); 
     display: flex; 
     align-items: center; 
-    ustify-content: center; 
+    justify-content: center; 
     flex-shrink: 0; 
 }
 .popover-icon svg { 
@@ -727,7 +727,7 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
     margin-bottom: 0.85rem;
 }
 .sewa-tagihan-label { 
-    ont-size: 0.72rem; 
+    font-size: 0.72rem; 
     color: rgba(201,168,76,0.6); 
     text-transform: uppercase; 
     letter-spacing: 0.09em; 
@@ -1121,7 +1121,7 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="{{ url('/user') }}#daftar-kamar">
+                    <a href="{{ url('/user/kamar') }}">
                         <span class="nav-icon"><i data-feather="layers"></i></span>
                         <span>Kamar Kos</span>
                     </a>
