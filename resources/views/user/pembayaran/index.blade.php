@@ -1407,7 +1407,6 @@ document.addEventListener('DOMContentLoaded', () => {
         icon: modalData.icon,
         background: 'rgba(8,15,28,0.97)',
         color: '#f0ece2',
-        iconColor: '#f87171',
         allowOutsideClick: false,
         confirmButtonText: 'OK',
         didOpen: () => {
