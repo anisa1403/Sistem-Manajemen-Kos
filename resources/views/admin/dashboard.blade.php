@@ -597,7 +597,7 @@
 
     <div class="stat-card">
         <div class="stat-icon">
-            <i data-feather="clock"></i>
+            <i data-feather="pocket"></i>
         </div>
         <div class="stat-label">Total Pembayaran</div>
         <div class="stat-value">{{ $pendingPayments ?? 0 }}</div>
@@ -648,6 +648,21 @@
                     </div>
                 </a>
 
+                <a href="/admin/tipe-kamar" class="action-card">
+                    <div class="action-card-icon">
+                        <i data-feather="tag"></i>
+                    </div>
+                    <div class="action-card-title">
+                        Tipe Kamar
+                    </div>
+                    <div class="action-card-desc">
+                        Atur informasi tipe kamar.
+                    </div>
+                    <div class="action-arrow">
+                        <i data-feather="arrow-right"></i>
+                    </div>
+                </a>
+
                 <a href="/admin/kamar" class="action-card">
                     <div class="action-card-icon">
                         <i data-feather="layers"></i>
@@ -663,24 +678,10 @@
                     </div>
                 </a>
 
-                <a href="/admin/tipe-kamar" class="action-card">
-                    <div class="action-card-icon">
-                        <i data-feather="layers"></i>
-                    </div>
-                    <div class="action-card-title">
-                        Tipe Kamar
-                    </div>
-                    <div class="action-card-desc">
-                        Atur informasi tipe kamar.
-                    </div>
-                    <div class="action-arrow">
-                        <i data-feather="arrow-right"></i>
-                    </div>
-                </a>
 
                 <a href="/admin/sewa" class="action-card">
                     <div class="action-card-icon">
-                        <i data-feather="credit-card"></i>
+                        <i data-feather="file-text"></i>
                     </div>
                     <div class="action-card-title">
                         Sewa

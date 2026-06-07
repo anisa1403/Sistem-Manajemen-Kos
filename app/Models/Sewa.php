@@ -30,6 +30,6 @@ class Sewa extends Model
 
     public function pembayaran()
     {
-        return $this->hasMany(Pembayaran::class, 'id_sewa');
+        return $this->hasOne(Pembayaran::class, 'id_sewa');
     }
 }

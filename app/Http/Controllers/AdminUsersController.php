@@ -9,9 +9,22 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminUsersController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::orderBy('id_user')->get();
+        $query = User::orderBy('id_user');
+
+        if ($request->filled('q')) {
+            $search = $request->q;
+            $query->where(function ($query) use ($search) {
+                $query->where('id_user', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%")
+                    ->orWhere('nama', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('no_hp', 'like', "%{$search}%");
+            });
+        }
+
+        $users = $query->get();
         return view('admin.users.index', compact('users'));
     }
 

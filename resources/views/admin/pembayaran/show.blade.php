@@ -146,7 +146,13 @@
         }
         .info-grid{
             display:grid;
+            grid-template-columns:repeat(2, minmax(240px, 1fr));
             gap:18px;
+        }
+        @media(max-width:680px){
+            .info-grid{
+                grid-template-columns:1fr;
+            }
         }
         .info-item{
             padding:22px;
@@ -344,7 +350,7 @@
             <div class="hero-content reveal">
 
                 <div class="hero-eyebrow">
-                    Arterra Living — Payment Detail
+Arterra Living — Detail Pembayaran
                 </div>
                 <h1 class="hero-title">
                     Detail <em>Pembayaran</em><br>
@@ -386,10 +392,88 @@
                                 </div>
                             </div>
 
-                                <div class="info-item">
+                            <div class="info-item">
                                 <div class="info-label">Nomor Kamar</div>
                                 <div class="info-value">
                                     {{ optional($pembayaran->sewa)->no_kamar ?? '-' }}
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-label">Tipe Kamar</div>
+                                <div class="info-value">
+                                    {{ optional(optional(optional($pembayaran->sewa)->kamar)->tipeKamar)->tipe_kamar ?? '-' }}
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-label">Jumlah Bulan</div>
+                                <div class="info-value">
+                                    {{ (optional($pembayaran->sewa)->jumlah_bulan !== null && optional($pembayaran->sewa)->jumlah_bulan !== '')
+                                        ? (optional($pembayaran->sewa)->jumlah_bulan . ' bulan')
+                                        : '-' }}
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-label">Harga per Bulan</div>
+                                <div class="info-value">
+                                    Rp {{ number_format(optional(optional(optional($pembayaran->sewa)->kamar)->tipeKamar)->harga ?? 0) }}
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-label">Rincian Bulan Penyewaan</div>
+                                <div class="info-value">
+                                    @php
+                                        $jumlahBulan = optional($pembayaran->sewa)->jumlah_bulan;
+
+                                        if ($jumlahBulan === null || $jumlahBulan === '') {
+                                            echo ($jumlahBulan ?? '-');
+                                        } else {
+                                            // Gunakan tgl_masuk sebagai referensi untuk menampilkan nama bulan penyewaan.
+                                            // Di model Sewa: field yang ada adalah tgl_masuk dan jumlah_bulan.
+                                            $tanggalMulai = optional($pembayaran->sewa)->tgl_masuk;
+
+                                            $bulanNames = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+                                            $bulanList = [];
+
+                                            try {
+                                                if (!empty($tanggalMulai)) {
+                                                    $start = $tanggalMulai instanceof \DateTime ? $tanggalMulai : new \DateTime((string) $tanggalMulai);
+                                                    $n = (int) $jumlahBulan;
+                                                    for ($i = 0; $i < $n; $i++) {
+                                                    $bulanList[] = $bulanNames[((int) (clone $start)->modify("+{$i} month")->format('n')) - 1];
+                                                    }
+                                                } else {
+                                                    // fallback kalau tgl_masuk kosong
+                                                    $n = (int) $jumlahBulan;
+                                                    for ($i = 0; $i < $n; $i++) {
+                                                        $bulanList[] = $bulanNames[$i % 12];
+                                                    }
+                                                }
+
+                                                echo implode(', ', $bulanList);
+                                            } catch (\Exception $e) {
+                                                // fallback
+                                                $n = (int) $jumlahBulan;
+                                                for ($i = 0; $i < $n; $i++) {
+                                                    $bulanList[] = $bulanNames[$i % 12];
+                                                }
+                                                echo implode(', ', $bulanList);
+                                            }
+                                        }
+                                    @endphp
+                                </div>
+                            </div>
+
+
+                            <div class="info-item">
+                                <div class="info-label">Total Kontrak</div>
+                                <div class="info-value">
+                                    Rp {{ number_format(
+                                        (optional(optional(optional($pembayaran->sewa)->kamar)->tipeKamar)->harga ?? 0) * (optional($pembayaran->sewa)->jumlah_bulan ?? 0)
+                                    ) }}
                                 </div>
                             </div>
 

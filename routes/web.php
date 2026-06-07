@@ -53,7 +53,12 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/sewa/{id_sewa}', [AdminSewaController::class, 'show']);
 
     Route::get('/admin/pembayaran', [AdminPembayaranController::class, 'index']);
+    Route::get('/admin/pembayaran/create', [AdminPembayaranController::class, 'create']);
+    Route::post('/admin/pembayaran', [AdminPembayaranController::class, 'store']);
+    Route::get('/admin/pembayaran/cetak-semua', [AdminPembayaranController::class, 'cetakSemua'])->name('admin.pembayaran.cetakSemua');
+    Route::get('/admin/pembayaran/{id}/cetak', [AdminPembayaranController::class, 'cetakSatu'])->name('admin.pembayaran.cetakSatu');
     Route::get('/admin/pembayaran/{id_pembayaran}', [AdminPembayaranController::class, 'show']);
+    Route::delete('/admin/pembayaran/{id}', [AdminPembayaranController::class, 'destroy']);
 });
 
 
@@ -84,11 +89,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/pembayaran', [UserPembayaranController::class, 'index']);
     Route::get('/user/pembayaran/{id}', [UserPembayaranController::class, 'create']);
     Route::post('/user/pembayaran', [UserPembayaranController::class, 'store']);
+    Route::get('/user/pembayaran/edit/{id}', [UserPembayaranController::class, 'edit']);
+    Route::put('/user/pembayaran/{id}', [UserPembayaranController::class, 'update']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');   
 });
 
 

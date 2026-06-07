@@ -163,7 +163,7 @@ class UserSewaController extends Controller
     private function calculateDue(Sewa $sewa): int
     {
         $totalContract = $sewa->kamar->tipeKamar->harga * $sewa->jumlah_bulan;
-        $paid = $sewa->pembayaran->sum('jumlah');
+        $paid = $sewa->pembayaran?->jumlah ?? 0;
 
         return max(0, $totalContract - $paid);
     }

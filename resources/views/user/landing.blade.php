@@ -31,6 +31,32 @@
     --transition: 0.3s cubic-bezier(.4,0,.2,1);
 }
 
+body.light {
+    --navy-900: #f4f5f7;
+    --navy-800: #fafbfc;
+    --navy-700: #ffffff;
+    --navy-600: #ebebf0;
+    --navy-500: #e5e7ec;
+    --card-bg:  rgba(255,255,255,0.9);
+    --card-border: rgba(31,36,45,0.08);
+    --gold:     #c9a84c;
+    --gold-lt:  #e0c47a;
+    --gold-dim: rgba(201,168,76,0.12);
+    --gold-glow:rgba(201,168,76,0.2);
+    --accent:   #3b5bdb;
+    --accent-lt:rgba(59,91,219,0.15);
+    --success:  #16a34a;
+    --danger:   #b04343;
+    --text-1:   #1f242d;
+    --text-2:   #525968;
+    --text-3:   #8b92a9;
+    --sidebar-w:280px;
+    --radius-lg:18px;
+    --radius-md:12px;
+    --radius-sm:8px;
+    --transition: 0.3s cubic-bezier(.4,0,.2,1);
+}
+
 html { scroll-behavior: smooth; }
 html, body {
     height: auto;
@@ -77,7 +103,6 @@ body {
 .reveal-delay-4 { transition-delay: 0.4s; }
 .reveal-delay-5 { transition-delay: 0.5s; }
 
-/* ── Layout ── */
 .dashboard-container {
     display: flex;
     min-height: 100vh;
@@ -86,7 +111,6 @@ body {
     z-index: 1;
 }
 
-/* ── Sidebar ── */
 .sidebar {
     width: var(--sidebar-w);
     background: rgba(6, 12, 24, 0.92);
@@ -568,7 +592,7 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
                 </h1>
 
                 <p class="hero-subtitle">
-                    Nikmati kemudahan mengelola sewa, melihat ketersediaan kamar, dan melakukan pembayaran — semuanya dari satu dashboard.
+                    Nikmati kemudahan mengelola sewa, melihat ketersediaan kamar, dan melakukan pembayaran semuanya dari satu dashboard.
                 </p>
 
                 <div class="hero-cta">
@@ -623,10 +647,8 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
             </div>
         </section>
 
-        {{-- ── BODY CONTENT ── --}}
         <div class="body-content">
 
-            {{-- Status Sewa Aktif --}}
             @if($currentSewa)
                 <div class="current-sewa-card reveal reveal-scale">
                     <div class="sewa-header">

@@ -53,6 +53,7 @@
             display:flex;
             align-items:center;
             overflow:hidden;
+            border-radius:30px;
             border-bottom:1px solid var(--border);
         }
         .hero-bg{
@@ -224,8 +225,39 @@
             justify-content:space-between;
             align-items:flex-end;
             gap:20px;
-            margin-bottom:34px;
+            margin-bottom:24px;
             flex-wrap:wrap;
+        }
+        .search-row{
+            width:100%;
+            display:flex;
+            justify-content:flex-start;
+            gap:12px;
+            flex-wrap:wrap;
+            margin-bottom:20px;
+        }
+        .search-form{
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+            align-items:center;
+            width:100%;
+            max-width:520px;
+        }
+        .search-input{
+            flex:1;
+            min-width:200px;
+            padding:14px 18px;
+            border-radius:16px;
+            border:1px solid rgba(255,255,255,.08);
+            background:rgba(255,255,255,.03);
+            color:var(--white);
+            outline:none;
+            transition:.3s ease;
+        }
+        .search-input:focus{
+            border-color:rgba(201,168,76,.45);
+            background:rgba(201,168,76,.05);
         }
         .section-eyebrow{
             font-size:.62rem;
@@ -449,6 +481,23 @@
                     </div>
                 </div>
 
+                <div class="search-row">
+                    <form method="GET" class="search-form" action="{{ url()->current() }}">
+                        <input
+                            type="search"
+                            name="q"
+                            class="search-input"
+                            value="{{ request('q') }}"
+                            placeholder="Cari semua data pengguna..."
+                            aria-label="Cari pengguna"
+                        >
+                        <button type="submit" class="btn-outline">Cari</button>
+                        @if(request('q'))
+                            <a href="{{ url()->current() }}" class="btn-outline">Reset</a>
+                        @endif
+                    </form>
+                </div>
+
             </div>
 
             @if(session('success'))
@@ -508,13 +557,13 @@
 
                                             <form method="POST"
                                                   action="/admin/user/{{ $u->id_user }}"
-                                                  onsubmit="return confirm('Hapus user ini?')">
+                                                  class="delete-user-form">
 
                                                 @csrf
                                                 @method('DELETE')
 
                                                 <button type="submit"
-                                                        class="btn-danger">
+                                                        class="btn-danger delete-user-btn">
 
                                                     <i data-feather="trash-2"></i>
                                                     Hapus
@@ -545,4 +594,49 @@
             </div>
 
         </section>
+
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.delete-user-form').forEach(function (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const swalConfig = {
+                    title: 'Apakah Anda yakin?',
+                    text: 'Data pengguna akan dihapus permanen dan tidak dapat dipulihkan.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#00ab09',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal',
+                    background: 'rgba(8,15,28,0.97)',
+                    color: '#f5f0e8',
+                    iconColor: '#f87171',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        const popup = Swal.getPopup();
+                        if (popup) {
+                            popup.style.backdropFilter = 'blur(20px)';
+                            popup.style.webkitBackdropFilter = 'blur(20px)';
+                            popup.style.border = '1px solid rgba(201,168,76,0.2)';
+                            popup.style.borderRadius = '20px';
+                            popup.style.boxShadow = '0 30px 60px -15px rgba(0,0,0,0.7)';
+                        }
+                    }
+                };
+
+                Swal.fire(swalConfig).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
+@endpush
+
 @endsection

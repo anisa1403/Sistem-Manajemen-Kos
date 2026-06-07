@@ -76,7 +76,6 @@ body {
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
 
-/* ── Layout ── */
 .dashboard-container {
     display: flex;
     min-height: 100vh;
@@ -85,7 +84,6 @@ body {
     z-index: 1;
 }
 
-/* ── Sidebar ── */
 .sidebar {
     width: var(--sidebar-w);
     background: rgba(6, 12, 24, 0.92);
@@ -161,7 +159,6 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
 .popover-item.danger-item .popover-icon svg { stroke: #fca5a5 !important; }
 .popover-sep { height: 1px; background: rgba(201,168,76,0.08); margin: 2px 0; }
 
-/* ── Main Content ── */
 .main-content {
     margin-left: var(--sidebar-w);
     width: calc(100% - var(--sidebar-w));
@@ -169,7 +166,6 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
     padding: 0;
 }
 
-/* ── Page Hero ── */
 .page-hero {
     position: relative;
     padding: 3.5rem 3rem 3rem;
@@ -194,10 +190,8 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
 .breadcrumbs a:last-child { color: var(--gold); }
 @keyframes heroFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ── Body Content ── */
 .body-content { padding: 2.5rem 2.5rem 3rem 2rem; }
 
-/* ── Filter Container ── */
 .filter-container {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
@@ -232,7 +226,6 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
 .btn-reset:hover { background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.35); transform: translateY(-2px); }
 .btn-reset svg { stroke: var(--gold) !important; width: 14px !important; height: 14px !important; }
 
-/* ── Section Header ── */
 .section-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
 .section-header-left { display: flex; align-items: center; gap: 0.75rem; }
 .section-header-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--gold-dim); border: 1px solid rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; }
@@ -241,14 +234,12 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
 .section-header p  { color: var(--text-3); font-size: 0.84rem; margin: 0; }
 .section-badge { font-size: 0.7rem; font-weight: 600; padding: 4px 13px; border-radius: 100px; background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(201,168,76,0.22); }
 
-/* ── Kamar Grid ── */
 .kamar-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
     gap: 1.4rem;
 }
 
-/* ── Kamar Card ── */
 .kamar-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
@@ -303,7 +294,6 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
 
 .swal2-container { z-index: 99999 !important; }
 
-/* ── Responsive ── */
 @media (max-width: 1024px) {
     .sidebar { width: 70px; padding: 0 0 1.5rem; }
     .sidebar-brand-wrap { padding: 1.25rem 0.5rem; display: flex; justify-content: center; }
@@ -418,8 +408,6 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
     </aside>
 
     <main class="main-content">
-
-        {{-- ── PAGE HERO ── --}}
         <div class="page-hero">
             <div class="page-hero-inner">
                 <div class="page-hero-left">
@@ -444,10 +432,8 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
             </div>
         </div>
 
-        {{-- ── BODY ── --}}
         <div class="body-content">
 
-            {{-- Filter --}}
             <div class="filter-container reveal">
                 <div class="filter-title">
                     <i data-feather="filter"></i>
@@ -458,7 +444,7 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
                         <span class="search-icon"><i data-feather="search"></i></span>
                         <input type="text" id="searchKamar" class="f-input"
                                onkeyup="filterKamar()"
-                               placeholder="Cari nama atau nomor kamar...">
+                               placeholder="Cari kamar, tipe, fasilitas, atau harga...">
                     </div>
                     <div class="range-group">
                         <div class="range-label">
@@ -504,7 +490,8 @@ aside .nav-icon svg { stroke: #7a7568 !important; fill: none !important; width: 
                              style="transition-delay: {{ $loop->index * 0.07 }}s"
                              data-nama="Kamar {{ $k->no_kamar }}"
                              data-harga="{{ $tipe->harga }}"
-                             data-kategori="{{ $tipe->tipe_kamar }}">
+                             data-kategori="{{ $tipe->tipe_kamar }}"
+                             data-fasilitas="{{ $k->fasilitas }}">
 
                             <div class="kamar-header">
                                 <div class="kamar-header-left">
@@ -668,9 +655,17 @@ function filterKamar() {
         label.innerText = (maxPrice === maxRange) ? 'Semua' : 'Rp ' + new Intl.NumberFormat('id-ID').format(maxPrice);
         let found = 0;
         document.querySelectorAll('.kamar-card').forEach(card => {
-            const match = card.dataset.nama.toLowerCase().includes(search)
-                       && parseInt(card.dataset.harga) <= maxPrice
-                       && (!category || card.dataset.kategori.toLowerCase().includes(category));
+            const name = card.dataset.nama.toLowerCase();
+            const fasilitas = (card.dataset.fasilitas || '').toLowerCase();
+            const kategori = (card.dataset.kategori || '').toLowerCase();
+            const harga = card.dataset.harga.toString().toLowerCase();
+            const match = (
+                name.includes(search) ||
+                fasilitas.includes(search) ||
+                kategori.includes(search) ||
+                harga.includes(search)
+            ) && parseInt(card.dataset.harga) <= maxPrice
+              && (!category || kategori.includes(category));
             card.style.display = match ? 'flex' : 'none';
             if (match) found++;
         });

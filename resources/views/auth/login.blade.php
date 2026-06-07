@@ -1,4 +1,4 @@
-{{-- Arterra Living - Premium Residence Login --}}
+{{-- Arterra Living - Comfort Residence Login --}}
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -519,7 +519,6 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            {{-- Username --}}
             <div class="field">
                 <label for="username">Username</label>
                 <div class="input-wrap">
@@ -584,9 +583,7 @@
                     <span>Ingat saya</span>
                 </label>
 
-                @if (Route::has('password.request'))
-                    <a class="forgot-link" href="{{ route('password.request') }}">Lupa password?</a>
-                @endif
+                <a class="forgot-link" href="{{ url('forgot-password') }}">Lupa password?</a>
             </div>
 
             {{-- Submit --}}

@@ -7,9 +7,20 @@ use App\Models\TipeKamar;
 
 class TipeKamarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = TipeKamar::all();
+        $query = TipeKamar::orderBy('id_tipe');
+
+        if ($request->filled('q')) {
+            $search = $request->q;
+            $query->where(function ($query) use ($search) {
+                $query->where('id_tipe', 'like', "%{$search}%")
+                    ->orWhere('tipe_kamar', 'like', "%{$search}%")
+                    ->orWhere('harga', 'like', "%{$search}%");
+            });
+        }
+
+        $data = $query->get();
         return view('admin.tipe_kamar.index', compact('data'));
     }
 

@@ -20,7 +20,7 @@ class UserKamarController extends Controller
             ->get()
             ->first(function ($s) {
                 $totalContract = $s->kamar->tipeKamar->harga * $s->jumlah_bulan;
-                $paid = $s->pembayaran->sum('jumlah');
+                $paid = $s->pembayaran?->jumlah ?? 0;
                 return max(0, $totalContract - $paid) > 0;
             });
 
@@ -42,7 +42,7 @@ class UserKamarController extends Controller
         $dueActive = null;
         if ($activeSewa) {
             $totalContract = $activeSewa->kamar->tipeKamar->harga * $activeSewa->jumlah_bulan;
-            $paid = $activeSewa->pembayaran->sum('jumlah');
+            $paid = $activeSewa->pembayaran?->jumlah ?? 0;
             $dueActive = max(0, $totalContract - $paid);
         }
 

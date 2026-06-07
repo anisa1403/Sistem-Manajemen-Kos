@@ -13,7 +13,7 @@
             --gold: #C9A84C;
             --gold-light: #E8C97A;
             --gold-dim: #7a6128;
-            --navy: #0D1B2A;
+            --navy: #081521;
             --navy-mid: #162236;
             --navy-light: #1E2F45;
             --navy-card: rgba(14, 25, 40, 0.85);
@@ -339,7 +339,6 @@
             text-transform: uppercase;
             color: var(--white-dim);
         }
-
 
         section { padding: 6rem 3rem; }
 
@@ -942,10 +941,10 @@
             <div class="gold-divider" style="margin: 0.75rem 0;"></div>
             <p>Comfy residence untuk kehidupan Anda. Nyaman, aman, dan terjangkau, tempat Anda benar-benar bisa pulang.</p>
             <div class="footer-socials">
-                <a href="https://instagram.com/" target="_blank" class="social-btn" title="Instagram" aria-label="Instagram">
+                <a href="https://instagram.com/arterra_livingg" target="_blank" class="social-btn" title="Instagram" aria-label="Instagram">
                     <i data-feather="instagram" width="18" height="18"></i>
                 </a>
-                <a href="https://facebook.com/" target="_blank" class="social-btn" title="Facebook" aria-label="Facebook">
+                <a href="https://www.facebook.com/profile.php?id=61590265784870" target="_blank" class="social-btn" title="Facebook" aria-label="Facebook">
                     <i data-feather="facebook" width="18" height="18"></i>
                 </a>
                 <a href="https://wa.me/6285174087331?text=Halo%2C%20saya%20tertarik%20dengan%20kos%20Arterra%20Living.%20Boleh%20saya%20tanya%20informasi%20lebih%20lanjut%3F" target="_blank" class="social-btn" title="WhatsApp Admin" aria-label="WhatsApp" style="background: rgba(37,211,102,0.1); border-color: rgba(37,211,102,0.3); color: #25D366;">
@@ -971,8 +970,8 @@
             <h4>Kontak Admin</h4>
             <ul>
                 <li><a href="https://wa.me/6285174087331?text=Halo%2C%20saya%20ingin%20menanyakan%20kamar%20kos%20Arterra%20Living." target="_blank"><i data-feather="phone"></i> 0851-7408-7331</a></li>
-                <li><a href="https://instagram.com/" target="_blank"><i data-feather="instagram"></i> @arterraliving</a></li>
-                <li><a href="mailto:admin@arterraliving.id"><i data-feather="mail"></i> admin@arterraliving.id</a></li>
+                <li><a href="https://instagram.com/dlune.luvrism" target="_blank"><i data-feather="instagram"></i> @dlune.luvrism</a></li>
+                <li><a href="mailto:arterralivingg@gmail.com"><i data-feather="mail"></i>@arterraalivingg@gmail.com</a></li>
                 <li><a href="#lokasi"><i data-feather="map-pin"></i> Lihat Lokasi</a></li>
             </ul>
         </div>

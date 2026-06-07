@@ -9,10 +9,23 @@ use App\Models\TipeKamar;
 class KamarController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = Kamar::with('tipe')->get();
+        $query = Kamar::with('tipe')->orderBy('no_kamar');
 
+        if ($request->filled('q')) {
+            $search = $request->q;
+            $query->where(function ($query) use ($search) {
+                $query->where('no_kamar', 'like', "%{$search}%")
+                    ->orWhere('fasilitas', 'like', "%{$search}%")
+                    ->orWhereHas('tipe', function ($query) use ($search) {
+                        $query->where('tipe_kamar', 'like', "%{$search}%")
+                              ->orWhere('harga', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        $data = $query->get();
         return view('admin.kamar.index', compact('data'));
     }
 

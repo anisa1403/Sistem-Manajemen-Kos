@@ -11,7 +11,7 @@
     @stack('styles')
     <style>
         :root{
-            --bg:#080b10;
+            --bg:rgba(0, 6, 17, 0.97);
             --surface:#0d1117;
             --glass:rgba(10,12,18,.82);
             --border:rgba(180,148,72,.18);

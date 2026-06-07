@@ -3,470 +3,448 @@
 @section('title', 'Admin — Daftar Sewa')
 
 @push('styles')
-<style>:root{
-            --bg:#080b10;
-            --surface:#0d1117;
-            --glass:rgba(10,12,18,.82);
-            --border:rgba(180,148,72,.18);
-            --gold:#c9a84c;
-            --gold-light:#e2c97e;
-            --gold-dim:rgba(201,168,76,.12);
-            --text:#e8e0d0;
-            --muted:#8a8070;
-            --white:#f5f0e8;
-        }
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
-        html{
-            scroll-behavior:smooth;
-        }
+<style>
+:root{
+    --bg:#080b10;
+    --surface:#0d1117;
+    --glass:rgba(10,12,18,.82);
+    --border:rgba(180,148,72,.16);
+    --gold:#c9a84c;
+    --gold-light:#e2c97e;
+    --gold-dim:rgba(201,168,76,.1);
+    --text:#e8e0d0;
+    --muted:#8a8070;
+    --white:#f5f0e8;
+    --danger:#ef4444;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Jost',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at top left,rgba(201,168,76,.08),transparent 28%),
+        radial-gradient(circle at bottom right,rgba(201,168,76,.06),transparent 25%);
+    pointer-events:none;
+    z-index:-1;
+}
+a{text-decoration:none;color:inherit}
 
-        body{
-            font-family:'Jost',sans-serif;
-            background:var(--bg);
-            color:var(--text);
-            overflow-x:hidden;
-        }
-        body::before{
-            content:'';
-            position:fixed;
-            inset:0;
-            background:
-                radial-gradient(circle at top left,
-                rgba(201,168,76,.08),
-                transparent 28%);
-            pointer-events:none;
-            z-index:-1;
-        }
-        a{
-            text-decoration:none;
-            color:inherit;
-        }
+.main{display:flex;flex-direction:column}
 
-        .main{
-            padding:42px;
-            display:flex;
-            flex-direction:column;
-            gap:28px;
-        }
+.hero{
+    position:relative;
+    min-height:360px;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    border-radius:30px;
+    border-bottom:1px solid var(--border);
+}
+.hero-bg{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(to right,rgba(8,11,16,.96) 28%,rgba(8,11,16,.6) 100%),
+        url('https://plus.unsplash.com/premium_photo-1676823553207-758c7a66e9bb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')
+        center/cover no-repeat;
+}
+.hero-overlay{
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse at 80% 50%,rgba(201,168,76,.1),transparent 60%);
+}
+.hero-content{
+    position:relative;
+    z-index:2;
+    padding:80px 72px;
+    max-width:760px;
+}
+.hero-eyebrow{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:24px;
+    animation:fadeUp .8s ease;
+}
+.hero-eyebrow span{
+    font-size:.64rem;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--gold);
+}
+.eyebrow-line{width:42px;height:1px;background:var(--gold)}
+.hero-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2.7rem,5vw,4.2rem);
+    line-height:1.08;
+    color:var(--white);
+    margin-bottom:16px;
+    animation:fadeUp .9s ease;
+}
+.hero-title em{color:var(--gold-light);font-style:italic}
+.hero-subtitle{
+    font-size:1rem;
+    line-height:1.9;
+    color:var(--muted);
+    max-width:560px;
+    margin-bottom:34px;
+    animation:fadeUp 1s ease;
+}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp 1.1s ease}
+.btn-gold,
+.btn-outline{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    border-radius:8px;
+    padding:14px 24px;
+    transition:.3s ease;
+    font-size:.76rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:600;
+    cursor:pointer;
+    border:none;
+}
+.btn-gold{background:var(--gold);color:#111}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-outline{border:1px solid var(--border);background:transparent;color:var(--white)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold-light);transform:translateY(-2px)}
 
-        .hero{
-            position:relative;
-            overflow:hidden;
-            border:1px solid var(--border);
-            border-radius:30px;
-            padding:54px;
-            background:
-                linear-gradient(
-                    to right,
-                    rgba(8,11,16,.96),
-                    rgba(8,11,16,.72)
-                ),
-                url('https://plus.unsplash.com/premium_photo-1676823553207-758c7a66e9bb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')
-                center/cover no-repeat;
-        }
-        .hero::after{
-            content:'';
-            position:absolute;
-            inset:0;
-            background:
-                radial-gradient(
-                    circle at right,
-                    rgba(201,168,76,.1),
-                    transparent 40%
-                );
-        }
-        .hero-content{
-            position:relative;
-            z-index:2;
-            max-width:680px;
-        }
-        .hero-eyebrow{
-            font-size:.65rem;
-            letter-spacing:.28em;
-            color:var(--gold);
-            text-transform:uppercase;
-            margin-bottom:18px;
-            animation:fadeUp .8s ease;
-        }
-        .hero-title{
-            font-family:'Cormorant Garamond',serif;
-            font-size:clamp(2.8rem,5vw,4.2rem);
-            line-height:1.08;
-            color:var(--white);
-            margin-bottom:18px;
-            animation:fadeUp 1s ease;
-        }
-        .hero-title em{
-            color:var(--gold-light);
-            font-style:italic;
-        }
-        .hero-subtitle{
-            color:var(--muted);
-            line-height:1.9;
-            max-width:520px;
-            margin-bottom:30px;
-            animation:fadeUp 1.2s ease;
-        }
-        .hero-actions{
-            display:flex;
-            gap:14px;
-            flex-wrap:wrap;
-            animation:fadeUp 1.35s ease;
-        }
-        .btn-gold,
-        .btn-outline{
-            position:relative;
-            overflow:hidden;
-            display:inline-flex;
-            align-items:center;
-            gap:10px;
-            padding:14px 26px;
-            border-radius:8px;
-            font-size:.76rem;
-            letter-spacing:.16em;
-            text-transform:uppercase;
-            transition:.3s;
-        }
-        .btn-gold{
-            background:var(--gold);
-            color:#111;
-            font-weight:600;
-        }
-        .btn-gold:hover{
-            background:var(--gold-light);
-            transform:translateY(-2px);
-        }
-        .btn-outline{
-            border:1px solid var(--border);
-            color:var(--white);
-        }
-        .btn-outline:hover{
-            border-color:var(--gold);
-            color:var(--gold-light);
-            transform:translateY(-2px);
-        }
-        .btn-gold::before{
-            content:'';
-            position:absolute;
-            inset:0;
-            background:linear-gradient(
-                120deg,
-                transparent,
-                rgba(255,255,255,.24),
-                transparent
-            );
-            transform:translateX(-120%);
-            transition:.8s;
-        }
-        .btn-gold:hover::before{
-            transform:translateX(120%);
-        }
-        
-        .table-card{
-            background:rgba(13,17,23,.78);
-            border:1px solid var(--border);
-            border-radius:28px;
-            overflow:hidden;
-            backdrop-filter:blur(18px);
-            transition:
-                transform .45s ease,
-                border-color .45s ease,
-                box-shadow .45s ease;
-        }
-        .table-card:hover{
-            transform:translateY(-3px);
-            border-color:rgba(201,168,76,.28);
-            box-shadow:
-                0 24px 60px rgba(0,0,0,.45),
-                0 0 40px rgba(201,168,76,.06);
-        }
-        .table-header{
-            padding:30px;
-            border-bottom:1px solid var(--border);
-            display:flex;
-            justify-content:space-between;
-            gap:20px;
-            align-items:center;
-            flex-wrap:wrap;
-        }
-        .table-title-wrap small{
-            font-size:.65rem;
-            letter-spacing:.24em;
-            color:var(--gold);
-            text-transform:uppercase;
-        }
-        .table-title{
-            font-family:'Cormorant Garamond',serif;
-            font-size:2rem;
-            color:var(--white);
-            margin-top:8px;
-        }
-        .table-subtitle{
-            margin-top:10px;
-            color:var(--muted);
-            line-height:1.8;
-            max-width:520px;
-            font-size:.92rem;
-        }
-        .table-badge{
-            padding:12px 18px;
-            border-radius:999px;
-            border:1px solid var(--border);
-            background:var(--gold-dim);
-            color:var(--gold-light);
-            font-size:.76rem;
-            letter-spacing:.12em;
-            text-transform:uppercase;
-            animation:pulseGlow 4s infinite ease-in-out;
-        }
-        .table-wrapper{
-            overflow-x:auto;
-        }
-        table{
-            width:100%;
-            border-collapse:collapse;
-            min-width:1000px;
-        }
-        thead{
-            background:rgba(255,255,255,.02);
-        }
-        th{
-            padding:18px 22px;
-            text-align:left;
-            color:var(--gold-light);
-            font-size:.7rem;
-            letter-spacing:.16em;
-            text-transform:uppercase;
-            font-weight:500;
-            border-bottom:1px solid var(--border);
-        }
-        td{
-            padding:22px;
-            border-bottom:1px solid rgba(255,255,255,.04);
-            color:var(--text);
-            font-size:.92rem;
-        }
-        tbody tr{
-            transition:
-                background .35s ease,
-                transform .35s ease;
-        }
-        tbody tr:hover{
-            background:rgba(201,168,76,.05);
-            transform:translateX(4px);
-        }
-        .status-pill{
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            padding:8px 14px;
-            border-radius:999px;
-            background:rgba(201,168,76,.12);
-            border:1px solid rgba(201,168,76,.18);
-            color:var(--gold-light);
-            font-size:.72rem;
-            letter-spacing:.08em;
-            text-transform:uppercase;
-        }
-        .table-action{
-            position:relative;
-            overflow:hidden;
-            display:inline-flex;
-            align-items:center;
-            gap:8px;
-            padding:10px 18px;
-            border-radius:10px;
-            background:var(--gold);
-            color:#111;
-            font-size:.72rem;
-            letter-spacing:.12em;
-            text-transform:uppercase;
-            font-weight:600;
-            transition:.3s;
-        }
-        .table-action:hover{
-            background:var(--gold-light);
-            transform:translateY(-2px);
-        }
-        .table-action::before{
-            content:'';
-            position:absolute;
-            inset:0;
-            background:linear-gradient(
-                120deg,
-                transparent,
-                rgba(255,255,255,.22),
-                transparent
-            );
-            transform:translateX(-120%);
-            transition:.8s;
-        }
-        .table-action:hover::before{
-            transform:translateX(120%);
-        }
-       
-        .reveal{
-            opacity:0;
-            transform:translateY(40px);
-            transition:
-                opacity .9s ease,
-                transform .9s ease;
-        }
-        .reveal.visible{
-            opacity:1;
-            transform:translateY(0);
-        }
-       
-        @keyframes fadeUp{
-            from{
-                opacity:0;
-                transform:translateY(24px);
-            }
-            to{
-                opacity:1;
-                transform:translateY(0);
-            }
-        }
-        @keyframes fadeLeft{
-            from{
-                opacity:0;
-                transform:translateX(24px);
-            }
-            to{
-                opacity:1;
-                transform:translateX(0);
-            }
-        }
-        @keyframes pulseGlow{
-            0%{
-                box-shadow:0 0 0 rgba(201,168,76,0);
-            }
-            50%{
-                box-shadow:0 0 28px rgba(201,168,76,.12);
-            }
-            100%{
-                box-shadow:0 0 0 rgba(201,168,76,0);
-            }
-        }
-        
-        @media(max-width:980px){
-.main{
-                padding:24px;
-            }
-            .hero{
-                padding:38px 28px;
-            }
-            .table-header{
-                padding:24px;
-            }
-            table{
-                min-width:900px;
-            }
-        }
+.hero-stats{
+    position:absolute;
+    right:60px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    z-index:2;
+}
+.hero-stat{
+    background:rgba(13,17,23,.85);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+    min-width:190px;
+    backdrop-filter:blur(14px);
+    animation:fadeLeft .9s ease;
+}
+.hero-stat-icon{
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    background:var(--gold-dim);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold);
+    margin-bottom:12px;
+}
+.hero-stat-value{
+    font-family:'Cormorant Garamond',serif;
+    font-size:2rem;
+    color:var(--white);
+    margin-bottom:6px;
+}
+.hero-stat-label{
+    font-size:.64rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+}
+
+.section{padding:80px 72px}
+.section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:20px;
+    margin-bottom:24px;
+    flex-wrap:wrap;
+}
+.search-row{
+    width:100%;
+    display:flex;
+    justify-content:flex-start;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+.search-form{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    align-items:center;
+    width:100%;
+    max-width:520px;
+}
+.search-input{
+    flex:1;
+    min-width:200px;
+    padding:14px 18px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.03);
+    color:var(--white);
+    outline:none;
+    transition:.3s ease;
+}
+.search-input:focus{
+    border-color:rgba(201,168,76,.45);
+    background:rgba(201,168,76,.05);
+}
+.section-eyebrow{
+    font-size:.62rem;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:12px;
+}
+.section-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2rem,4vw,3rem);
+    color:var(--white);
+}
+.section-title em{color:var(--gold-light);font-style:italic}
+
+.alert{
+    margin-bottom:24px;
+    padding:18px 22px;
+    border-radius:18px;
+    background:rgba(201,168,76,.08);
+    border:1px solid rgba(201,168,76,.18);
+    color:var(--gold-light);
+    animation:fadeUp .6s ease;
+}
+
+.table-wrapper{
+    background:rgba(13,17,23,.74);
+    border:1px solid var(--border);
+    border-radius:28px;
+    overflow:hidden;
+    backdrop-filter:blur(18px);
+    animation:fadeUp 1s ease;
+}
+.table-scroll{overflow-x:auto}
+.table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1000px;
+}
+.table thead{background:rgba(255,255,255,.02)}
+.table th{
+    padding:22px;
+    text-align:left;
+    color:var(--gold);
+    font-size:.72rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    font-weight:600;
+    border-bottom:1px solid var(--border);
+}
+.table td{
+    padding:22px;
+    border-bottom:1px solid rgba(255,255,255,.04);
+    color:var(--text);
+    font-size:.92rem;
+    transition:.3s ease;
+}
+.table tbody tr{transition:.3s ease}
+.table tbody tr:hover{background:rgba(201,168,76,.05);transform:scale(1.002)}
+.status-pill{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px 14px;
+    border-radius:999px;
+    background:rgba(201,168,76,.08);
+    border:1px solid rgba(201,168,76,.18);
+    color:var(--gold-light);
+    font-size:.72rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+}
+.action-group{display:flex;gap:10px;flex-wrap:wrap}
+.btn-detail{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 18px;
+    border-radius:8px;
+    background:var(--gold);
+    color:#111;
+    font-size:.72rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-weight:600;
+    transition:.3s ease;
+}
+.btn-detail:hover{background:var(--gold-light);transform:translateY(-2px)}
+.empty{padding:44px;text-align:center;color:var(--muted)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:.8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(24px)}
+    to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeLeft{
+    from{opacity:0;transform:translateX(24px)}
+    to{opacity:1;transform:translateX(0)}
+}
+
+@media(max-width:980px){
+    .hero-stats{display:none}
+    .hero-content,.section{padding-left:32px;padding-right:32px}
+}
 </style>
 @endpush
 
 @section('content')
-<section class="hero reveal">
+
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+
     <div class="hero-content">
         <div class="hero-eyebrow">
-            Modul Penyewaan
+            <div class="eyebrow-line"></div>
+            <span>Modul Penyewaan</span>
+            <div class="eyebrow-line"></div>
         </div>
+
         <h1 class="hero-title">
-            Daftar <em>Sewa</em> Penghuni
+            Daftar <em>Sewa</em> <br>
+            Penghuni
         </h1>
+
         <p class="hero-subtitle">
             Pantau seluruh transaksi penyewaan kamar.
         </p>
+
         <div class="hero-actions">
-            <a href="/admin/kamar" class="btn-gold">
+            <a href="/admin/pembayaran" class="btn-gold">
                 <i data-feather="layers"></i>
-                Kelola Kamar
-            </a>
-            <a href="/admin/pembayaran" class="btn-outline">
-                <i data-feather="credit-card"></i>
                 Pembayaran
             </a>
+            <a href="/admin/dashboard" class="btn-outline">
+                <i data-feather="grid"></i>
+                Dashboard
+            </a>
+        </div>
+    </div>
+
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hero-stat-icon">
+                <i data-feather="file-text"></i>
+            </div>
+            <div class="hero-stat-value">{{ count($sewa) }}</div>
+            <div class="hero-stat-label">Total Sewa</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-icon">
+                <i data-feather="home"></i>
+            </div>
+            <div class="hero-stat-value">Aktif</div>
+            <div class="hero-stat-label">Status Sewa</div>
         </div>
     </div>
 </section>
 
-<section class="table-card reveal" id="daftar_sewa">
-    <div class="table-header">
-        <div class="table-title-wrap">
-            <small>Data Penyewaan</small>
-            <div class="table-title">
-                Seluruh Transaksi Sewa
-            </div>
-            <div class="table-subtitle">
-                Menampilkan seluruh data penyewaan kamar yang telah tercatat dalam sistem Arterra Living.
-            </div>
+<section class="section reveal">
+
+    <div class="section-header">
+        <div>
+            <div class="section-eyebrow">Data Penyewaan</div>
+            <div class="section-title">Seluruh Transaksi <em>Sewa</em></div>
         </div>
-        <div class="table-badge">
-            Total:
-            {{ count($sewa) }}
+
+        <div class="search-row">
+            <form method="GET" action="{{ url()->current() }}" class="search-form">
+                <input
+                    type="search"
+                    name="q"
+                    class="search-input"
+                    value="{{ request('q') }}"
+                    placeholder="Cari pengguna, tipe kamar, tanggal masuk, atau bulan sewa"
+                    aria-label="Cari sewa"
+                >
+                <button type="submit" class="btn-outline">Cari</button>
+                @if(request('q'))
+                    <a href="{{ url()->current() }}" class="btn-outline">Reset</a>
+                @endif
+            </form>
         </div>
     </div>
+
+    @if(session('success'))
+        <div class="alert">{{ session('success') }}</div>
+    @endif
 
     <div class="table-wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID Sewa</th>
-                    <th>Pengguna</th>
-                    <th>No Kamar</th>
-                    <th>Tipe</th>
-                    <th>Tanggal Masuk</th>
-                    <th>Durasi</th>
-                    <th>Keterangan</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($sewa as $item)
-                <tr>
-                    <td>
-                        #{{ $item->id_sewa }}
-                    </td>
-                    <td>
-                        {{ $item->user->nama }}
-                    </td>
-                    <td>
-                        {{ $item->no_kamar }}
-                    </td>
-                    <td>
-                        <span class="status-pill">
-                            {{ $item->kamar->tipeKamar->tipe_kamar }}
-                        </span>
-                    </td>
-                    <td>
-                        {{ $item->tgl_masuk }}
-                    </td>
-                    <td>
-                        {{ $item->jumlah_bulan }} Bulan
-                    </td>
-                    <td>
-                        {{ $item->keterangan }}
-                    </td>
-                    <td>
-                        <a href="/admin/sewa/{{ $item->id_sewa }}" class="table-action">
-                            <i data-feather="eye"></i>
-                            Detail
-                        </a>
-                    </td>
-                </tr>
-                
-                @endforeach
-
-            </tbody>
-
-        </table>
-
+        <div class="table-scroll">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID Sewa</th>
+                        <th>Pengguna</th>
+                        <th>No Kamar</th>
+                        <th>Tipe</th>
+                        <th>Tanggal Masuk</th>
+                        <th>Durasi</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($sewa as $item)
+                    <tr>
+                        <td>#{{ $item->id_sewa }}</td>
+                        <td>{{ $item->user->nama }}</td>
+                        <td>{{ $item->no_kamar }}</td>
+                        <td>
+                            <span class="status-pill">
+                                {{ $item->kamar->tipeKamar->tipe_kamar }}
+                            </span>
+                        </td>
+                        <td>{{ $item->tgl_masuk }}</td>
+                        <td>{{ $item->jumlah_bulan }} Bulan</td>
+                        <td>{{ $item->keterangan }}</td>
+                        <td>
+                            <div class="action-group">
+                                <a href="/admin/sewa/{{ $item->id_sewa }}" class="btn-detail">
+                                    <i data-feather="eye"></i>
+                                    Detail
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </section>
+
+@push('scripts')
+<script>
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+@endpush
+
 @endsection
